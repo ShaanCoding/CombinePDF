@@ -2,35 +2,40 @@ package controller;
 
 import dev.shaankhan.javafx.Controller;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.TableView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
+import model.FileObject;
 import model.PDFCombiner;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 
-public class PDFCombinerController extends Controller<PDFCombiner> implements Initializable
+public class PDFCombinerController extends Controller<PDFCombiner>
 {
     @FXML
-    private ImageView imageView;
+    private TableView<FileObject> fileTv;
+
+    public ObservableList<FileObject> getAllFiles() {
+        return model.getFileObservableList();
+    }
+
+    private FileObject getSelectedFileObject() {
+        return fileTv.getSelectionModel().getSelectedItem();
+    }
+
+    public void removeFile(ActionEvent actionEvent) {
+        model.removeFile(getSelectedFileObject());
+    }
+
     @FXML
     private void exit(ActionEvent event) {
         Platform.exit();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
     }
 
     @FXML
@@ -46,8 +51,13 @@ public class PDFCombinerController extends Controller<PDFCombiner> implements In
 
     @FXML
     private void handleDrop(DragEvent event) throws FileNotFoundException {
+        //Adds file to list
         List<File> files = event.getDragboard().getFiles();
-        Image img = new Image(new FileInputStream(files.get(0)));
-        imageView.setImage(img);
+        model.addFile(new FileObject(files.get(0)));
+    }
+
+    @FXML
+    public void convertFiles(ActionEvent actionEvent) {
+        model.convertFiles();
     }
 }
