@@ -8,9 +8,16 @@
 
 <?import java.net.URL?>
 
+<?import javafx.scene.image.ImageView?>
+
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="controller.PDFCombinerController"
-      alignment="center" styleClass="root">
+      alignment="center" styleClass="root"
+      onDragOver="#handleDragOver" onDragDropped="#handleDrop">
+
+    <VBox maxHeight="100" maxWidth="100">
+        <ImageView fx:id="imageView"/>
+    </VBox>
 
     <HBox styleClass="header" spacing="20" alignment="CENTER">
         <Label styleClass="h1" text="CombinePDF"/>
