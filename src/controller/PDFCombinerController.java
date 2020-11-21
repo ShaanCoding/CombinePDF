@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
+import javafx.stage.FileChooser;
 import model.FileObject;
 import model.PDFCombiner;
 
@@ -58,6 +59,14 @@ public class PDFCombinerController extends Controller<PDFCombiner>
 
     @FXML
     public void convertFiles(ActionEvent actionEvent) {
-        model.convertFiles();
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF", "pdf");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(stage);
+
+        if(file != null) {
+            model.convertFiles(file);
+        }
     }
 }
