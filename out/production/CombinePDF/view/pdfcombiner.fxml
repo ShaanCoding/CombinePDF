@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+
+<?import javafx.scene.image.ImageView?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.PDFCombinerController"
+      alignment="center" styleClass="root"
+      onDragOver="#handleDragOver" onDragDropped="#handleDrop">
+
+    <HBox styleClass="header" spacing="20" alignment="CENTER">
+        <Label styleClass="h1" text="CombinePDF"/>
+    </HBox>
+
+    <TableView fx:id="filesTv" items="${controller.allFiles}">
+        <placeholder> <Label text="No Files Uploaded."/> </placeholder>
+
+        <columns>
+            <TableColumn text="File Name">
+                <cellValueFactory>
+                    <PropertyValueFactory property="fileName"/>
+                </cellValueFactory>
+            </TableColumn>
+
+            <TableColumn text="File Extension (KBs)">
+                <cellValueFactory>
+                    <PropertyValueFactory property="fileExtension"/>
+                </cellValueFactory>
+            </TableColumn>
+
+            <TableColumn text="File Size">
+                <cellValueFactory>
+                    <PropertyValueFactory property="fileSize"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <VBox styleClass="footer" spacing="20" alignment="CENTER">
+        <Button text="Remove" onAction="#removeFile"/>
+        <Button text="Convert" onAction="#convertFiles"/>
+        <Button text="Exit" onAction="#exit"/>
+    </VBox>
+
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
+</VBox>
