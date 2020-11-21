@@ -19,14 +19,14 @@ import java.util.List;
 public class PDFCombinerController extends Controller<PDFCombiner>
 {
     @FXML
-    private TableView<FileObject> fileTv;
+    private TableView<FileObject> filesTv;
 
     public ObservableList<FileObject> getAllFiles() {
         return model.getFileObservableList();
     }
 
     private FileObject getSelectedFileObject() {
-        return fileTv.getSelectionModel().getSelectedItem();
+        return filesTv.getSelectionModel().getSelectedItem();
     }
 
     public void removeFile(ActionEvent actionEvent) {
